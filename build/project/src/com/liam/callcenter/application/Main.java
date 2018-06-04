@@ -4,6 +4,7 @@ import com.liam.callcenter.test.CallCenterTester;
 import com.liam.callcenter.util.TextAreaPrinter;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -15,12 +16,20 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 
 		primaryStage.setTitle("CallCenterTest");
+		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent t) {
+				Platform.exit();
+				System.exit(0);
+			}
+		});
 
 		// Creating a GridPane container
 		GridPane grid = new GridPane();
