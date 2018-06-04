@@ -2,7 +2,7 @@ package com.liam.callcenter.util;
 
 import java.util.Random;
 
-import com.liam.callcenter.bean.Call;
+import com.liam.callcenter.item.Call;
 
 /**
  * This is a tool class to generate new {@link Call}

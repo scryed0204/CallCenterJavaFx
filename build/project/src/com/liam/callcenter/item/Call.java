@@ -1,5 +1,13 @@
-package com.liam.callcenter.bean;
+package com.liam.callcenter.item;
 
+/**
+ * Call is the class demonstrate a single incoming call.
+ * callLvl is the attribute to represent how hard is this call to handle.
+ * callId is the unique identifier of the call object.
+ * 
+ * @author Liam
+ *
+ */
 public class Call {
 
 	private Integer callLvl;

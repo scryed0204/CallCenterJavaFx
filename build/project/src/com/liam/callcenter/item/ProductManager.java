@@ -1,14 +1,23 @@
-package com.liam.callcenter.bean;
+package com.liam.callcenter.item;
 
 import java.util.concurrent.TimeUnit;
 
 import com.liam.callcenter.util.CallHandler;
+import com.liam.callcenter.util.TextAreaPrinter;
 
+/**
+ * ProductManager is an implementation of {@link Employee}.
+ * It is a singleton object.
+ * It can handle the {@link Call} which has callLevel not greater than 100;
+ * 
+ * @author Liam
+ *
+ */
 public class ProductManager implements Employee {
 
 	public static final int manageableCallLvl = 100;
 
-	private boolean isAvailiable = true;
+	private boolean isAvailable = true;
 	private String employeeId;
 	private CallHandler callHandler;
 
@@ -34,9 +43,9 @@ public class ProductManager implements Employee {
 		if (call.getCallLvl() > manageableCallLvl) {
 			passCall(call);
 		} else {
-			isAvailiable = false;
+			isAvailable = false;
 
-			System.out.println(employeeId + " is now on a call: " + call.getCallLvl() + " / " + call.getCallId());
+			TextAreaPrinter.getInstance().printText("[" + call.getCallId() + "]" + employeeId + " is now on this call");
 			Thread thread = new Thread() {
 				public void run() {
 					try {
@@ -46,9 +55,9 @@ public class ProductManager implements Employee {
 						e.printStackTrace();
 					}
 
-					System.out.println(employeeId + " handled a call " + call.getCallLvl() + " / " + call.getCallId());
-
-					isAvailiable = true;
+					TextAreaPrinter.getInstance()
+							.printText("[" + call.getCallId() + "]" + employeeId + " is free from this call ");
+					isAvailable = true;
 				}
 			};
 
@@ -63,8 +72,8 @@ public class ProductManager implements Employee {
 	}
 
 	@Override
-	public boolean isAvailiable() {
-		return isAvailiable;
+	public boolean isAvailable() {
+		return isAvailable;
 	}
 
 	@Override

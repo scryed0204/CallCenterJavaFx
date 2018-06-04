@@ -1,14 +1,22 @@
-package com.liam.callcenter.bean;
+package com.liam.callcenter.item;
 
 import java.util.concurrent.TimeUnit;
 
 import com.liam.callcenter.util.CallHandler;
+import com.liam.callcenter.util.TextAreaPrinter;
 
+/**
+ * Fresher is an implementation of {@link Employee}.
+ * It can handle the {@link Call} which has callLevel not greater than 50;
+ * 
+ * @author Liam
+ *
+ */
 public class Fresher implements Employee {
 
 	public final int manageableCallLvl = 50;
-	
-	private boolean isAvailiable = true;
+
+	private boolean isAvailable = true;
 	private String employeeId;
 	private CallHandler callHandler;
 
@@ -22,9 +30,8 @@ public class Fresher implements Employee {
 		if (call.getCallLvl() > manageableCallLvl) {
 			passCall(call);
 		} else {
-			isAvailiable = false;
-
-			System.out.println(employeeId + " is now on a call: " + call.getCallLvl() + " / " + call.getCallId());
+			isAvailable = false;
+			TextAreaPrinter.getInstance().printText("[" + call.getCallId() + "]" + employeeId + " is now on this call");
 
 			Thread thread = new Thread() {
 				public void run() {
@@ -35,9 +42,9 @@ public class Fresher implements Employee {
 						e.printStackTrace();
 					}
 
-					System.out.println(employeeId + " handled a call " + call.getCallLvl() + " / " + call.getCallId());
-
-					isAvailiable = true;
+					TextAreaPrinter.getInstance()
+							.printText("[" + call.getCallId() + "]" + employeeId + " is free from this call ");
+					isAvailable = true;
 				}
 			};
 
@@ -51,8 +58,8 @@ public class Fresher implements Employee {
 		callHandler.escalateCall(this, call);
 	}
 
-	public boolean isAvailiable() {
-		return isAvailiable;
+	public boolean isAvailable() {
+		return isAvailable;
 	}
 
 	@Override
